@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/jshcrowthe/wc-i18n.svg?branch=master)](https://travis-ci.org/jshcrowthe/wc-i18n)
+[![Code Climate](https://codeclimate.com/repos/58fe0ed05ac14b027b001bab/badges/cbb0f80a573d30d6eee8/gpa.svg)](https://codeclimate.com/repos/58fe0ed05ac14b027b001bab/feed) [![Test Coverage](https://codeclimate.com/repos/58fe0ed05ac14b027b001bab/badges/cbb0f80a573d30d6eee8/coverage.svg)](https://codeclimate.com/repos/58fe0ed05ac14b027b001bab/coverage) [![Issue Count](https://codeclimate.com/repos/58fe0ed05ac14b027b001bab/badges/cbb0f80a573d30d6eee8/issue_count.svg)](https://codeclimate.com/repos/58fe0ed05ac14b027b001bab/feed) [![Build Status](https://travis-ci.org/fs-webdev/wc-i18n.svg?branch=master)](https://travis-ci.org/fs-webdev/wc-i18n)
 
 # WCI18n
 
@@ -115,7 +115,7 @@ In addition to the typical component setup `wc-i18n` provides some addition func
 
 #### Global Preset
 
-By pre-defining the `window.WCI18n` object you can create a new default language for your application. 
+By pre-defining the `window.WCI18n` object you can create a new default language for your application.
 This can be an easy way to set consistent global languages across multiple pages
 
 _Example:_
@@ -125,9 +125,9 @@ _Example:_
 <html>
 <head>
   <title>Define WCI18n</title>
- 
+
   <script>
-    // By predefining this object the language 
+    // By predefining this object the language
     // will default to 'ko' not 'en'
     window.WCI18n = { language: 'ko' };
   </script>
