@@ -1,0 +1,20 @@
+{
+  "plugins": {
+    "local": {
+      "browsers": [ "chrome" ]
+    },
+    "sauce": {
+      "browsers": [
+        {
+          "browserName":  "safari",
+          "platform":     "OS X 10.11",
+          "version":      "10"
+        },
+        {
+          "browserName":  "firefox",
+          "platform":     "Linux"
+        }
+      ]
+    }
+  }
+}
