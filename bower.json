@@ -1,6 +1,6 @@
 {
   "name": "wc-i18n",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "authors": [
     "Josh Crowther <jshcrowthe@gmail.com>"
   ],
@@ -26,12 +26,12 @@
     "web-component-tester": "Polymer/web-component-tester#5 - 6",
     "webcomponentsjs": "webcomponents/webcomponentsjs#0.7 - 1"
   },
-    "ignore": [
-               ".*",
-               "bin/",
-               "bin/*",
-               "test/",
-               "test/*",
-               "wct.conf.json"
-               ]
+  "ignore": [
+    ".*",
+    "bin/",
+    "bin/*",
+    "test/",
+    "test/*",
+    "wct.conf.json"
+  ]
 }
