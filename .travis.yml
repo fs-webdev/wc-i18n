@@ -13,7 +13,7 @@ addons:
     packages:
     - google-chrome-stable
 before_script:
-  - npm install -g bower web-component-tester@^5.0.1
+  - npm install -g bower web-component-tester@^6.0.1
   - npm install bower
   - export PATH=$PWD/node_modules/.bin:$PATH
   - bower install
