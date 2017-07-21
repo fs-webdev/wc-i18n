@@ -28,6 +28,28 @@ Specifically:
 
 `WCI18n` is included and used in your component as follows:
 
+#### Polymer 2
+
+```html
+<dom-module id='custom-el'>
+  <template>
+    <!-- Use the provided `i18n` function -->
+    <p>i18n('key')</p>
+  </template>
+  <script>
+    class CustomEl extends Polymer.mixinBehaviors([WCI18n()], Polymer.Element) {
+      static get is() {
+        return 'custom-el';
+      }
+      /* ... */
+    }
+    customElements.define(CustomEl.is, CustomEl);
+  </script>
+</dom-module>
+```
+
+#### Polymer 1
+
 ```html
 <dom-module id='custom-el'>
   <template>
@@ -150,6 +172,14 @@ _Example:_
 ```javascript
 window.WCI18n.setLanguage('ko'); //- Sets language to 'ko'
 ```
+
+## Running Docs Locally
+
+1. (Once) Install/Update the [Polymer CLI](https://www.npmjs.com/package/polymer-cli): ```npm i -g polymer-cli```
+
+1. Run `bower i` to load all of the dependencies.
+1. Run `polymer analyze > analysis.json` to set up docs page.
+1. Run `polymer serve -o` to run and view docs page including demo.
 
 ## Bugs/Comments
 
