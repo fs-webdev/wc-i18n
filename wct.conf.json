@@ -6,24 +6,65 @@
     "sauce": {
       "browsers": [
         {
-          "browserName":  "internet explorer",
-          "platform":     "Windows 8.1",
+          "browserName":  "safari",
+          "platform":     "OS X 10.12",
           "version":      "11"
         },
         {
-          "browserName":  "safari",
-          "platform":     "OS X 10.11",
-          "version":      "10"
-        },
-        {
           "browserName":  "chrome",
-          "platform":     "Linux"
+          "platform":     "OS X 10.12"
         },
         {
           "browserName":  "firefox",
-          "platform":     "Linux"
+          "platform":     "OS X 10.12"
+        },
+        {
+          "browserName":  "chrome",
+          "platform":     "linux"
+        },
+        {
+          "browserName":  "microsoftedge",
+          "platform":     "Windows 10",
+          "version":      ""
+        },
+        {
+          "browserName":  "chrome",
+          "platform":     "Windows 10"
+        },
+        {
+          "browserName":  "firefox",
+          "platform":     "Windows 10"
         }
       ]
+    },
+    "istanbul": {
+      "dir": "./reports/coverage",
+      "reporters": ["text", "text-summary", "lcov"],
+      "include": [
+        "**/wc-i18n/**/*.*"
+      ],
+      "exclude": [
+        "**/*polyfill*",
+        "**/bin/*",
+        "**/bower_components/**/*",
+        "**/demo/*",
+        "**/locales/*",
+        "**/reports/*",
+        "**/test/*"
+      ],
+      "thresholds": {
+        "global": {
+          "statements": 85,
+          "branches": 75,
+          "functions": 80,
+          "lines": 85
+        }
+      }
+    },
+    "size-limit": {
+      "path": "wc-i18n.html",
+      "limitNoPolymer": "2 KB",
+      "limitNoExternals": "2 KB"
     }
   }
 }
