@@ -10,13 +10,12 @@ Or see the LICENSE file that comes with this code.
     <meta charset="utf-8">
     <title>wc-i18n demo</title>
 
-    <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
-    <script src="../../promise-polyfill/promise.min.js"></script>
-    <script src="../../fetch/fetch.js"></script>
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
     <link rel="import" href="./demo-comp/demo-comp.html">
     <link rel="import" href="./test-comp/test-comp.html">
     <link rel="import" href="./fancy-el/fancy-el.html">
-    <link rel="import" href="../wc-i18n.html">
+
+    <script type="module" src="./native-el/native-el.js"></script>
   </head>
   <body>
     <div>
@@ -28,6 +27,7 @@ Or see the LICENSE file that comes with this code.
         <option>ko</option>
       </select>
     </div>
+    <native-el></native-el>
 
     <test-comp></test-comp>
     <demo-comp></demo-comp>
@@ -56,6 +56,7 @@ Or see the LICENSE file that comes with this code.
     <script>
       var langPicker = document.querySelector('#langPicker');
       langPicker.addEventListener('change', function() {
+        window.dispatchEvent(new CustomEvent('wc-i18n-set-language',{detail: langPicker.value}));
         document.querySelector('demo-comp').language = langPicker.value;
       });
     </script>
