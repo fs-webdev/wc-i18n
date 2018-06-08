@@ -1,6 +1,6 @@
 let _language = 'en';
 const _strings = {};
-const _instances = [];
+let _instances = [];
 
 // Cache for functions to be defined as needed
 var _i18nFxns = {};
@@ -46,18 +46,15 @@ window.WCI18n = window.WCI18n || {};
 
 _language = window.WCI18n.language || _language;
 
-
-
 export const WCI18n = (locales) => (baseElement) => class extends baseElement {
-  constructor(){
+  constructor () {
     super();
     this._componentPath = this.__getComponentPath();
     this.__updateLanguage(_language);
-    this.i18n = ()=>{}
+    this.i18n = () => {};
   }
 
-  connectedCallback() {
-
+  connectedCallback () {
     if (!Array.isArray(_instances[this.__getComponentName()])) _instances[this.__getComponentName()] = [];
     _instances.push(this);
 
@@ -66,7 +63,7 @@ export const WCI18n = (locales) => (baseElement) => class extends baseElement {
     }
   }
 
-  disconnectedCallback() {
+  disconnectedCallback () {
     _instances = _instances.filter(function (instance) {
       return instance !== this;
     }.bind(this));
@@ -75,18 +72,19 @@ export const WCI18n = (locales) => (baseElement) => class extends baseElement {
       super.disconnectedCallback();
     }
   }
-  __getComponentName() {
+  __getComponentName () {
     return (typeof this.is === 'string') ? this.is : this.tagName.toLowerCase();
   }
-  __getComponentPath() {
+  __getComponentPath () {
     let componentPath = '';
     try {
       throw new Error();
-    }
-    catch(e) {
+    } catch (e) {
       let stackLines = e.stack.split('\n');
-      let l = stackLines.filter(line=>line.includes(`${this.__getComponentName()}.js`))
-      componentPath = l[0].match(/((http[s]?:\/\/.+\/)([^\/]+\.js)):/)[2]
+      let l = stackLines.filter(line => line.includes(`${this.__getComponentName()}.js`));
+      /* eslint-disable no-useless-escape */
+      componentPath = l[0].match(/((http[s]?:\/\/.+\/)([^\/]+\.js)):/)[2];
+      /* eslint-enable no-useless-escape */
     }
     return componentPath;
   }
@@ -100,13 +98,13 @@ export const WCI18n = (locales) => (baseElement) => class extends baseElement {
    * instantaneously if the data has been fetched before or if a pending
    * request for data exists
    */
-  __fetchLocaleStrings(newLang) {
+  __fetchLocaleStrings (newLang) {
     return new Promise(resolve => {
       // If the strings already exist OR there is a promise for them
       if (_strings[this.__getComponentName()] && _strings[this.__getComponentName()][newLang]) return resolve(_strings[this.__getComponentName()][newLang]);
 
       var url = _computeLocaleURI(`${this._componentPath}/locales`, this.__getComponentName(), newLang);
-      var promise = window.fetch(url).then(res=> res.json());
+      var promise = window.fetch(url).then(res => res.json());
 
       // Assign promise to data location to prevent duplicate
       // requests
@@ -120,12 +118,12 @@ export const WCI18n = (locales) => (baseElement) => class extends baseElement {
         _strings[this.__getComponentName()][newLang] = locales;
         return locales;
       })
-      .catch(err => {
-      // Unset the promise to allow refetching of the data if
-      // possible
-        _strings[this.__getComponentName()][newLang] = null;
-        throw err;
-      }));
+        .catch(err => {
+          // Unset the promise to allow refetching of the data if
+          // possible
+          _strings[this.__getComponentName()][newLang] = null;
+          throw err;
+        }));
     });
   }
 
@@ -135,8 +133,7 @@ export const WCI18n = (locales) => (baseElement) => class extends baseElement {
    *
    * @param  {String} newLang The new language
    */
-  __updateLanguage(newLang) {
-
+  __updateLanguage (newLang) {
     if (_language !== newLang) _language = newLang;
     if (!_strings[this.__getComponentName()]) _strings[this.__getComponentName()] = locales;
 
@@ -146,7 +143,6 @@ export const WCI18n = (locales) => (baseElement) => class extends baseElement {
 
     this.__fetchLocaleStrings(newLang)
       .then(locales => {
-
         var fxnKey = this.__getComponentName() + '.' + newLang;
         this.i18n = _i18nFxns[fxnKey] = _i18nFxns[fxnKey] || function (key) {
         // The user can pass an object as the second param or a series of sequential string values
@@ -189,7 +185,7 @@ export const WCI18n = (locales) => (baseElement) => class extends baseElement {
        *
        * @event wc-i18n-translations-error
        */
-       this.dispatchEvent(new CustomEvent('wc-i18n-translations-error', {bubbles: false}));
+        this.dispatchEvent(new CustomEvent('wc-i18n-translations-error', {bubbles: false}));
       }.bind(this));
 
     // Iterate through all of the translatable components and trigger
@@ -203,10 +199,10 @@ export const WCI18n = (locales) => (baseElement) => class extends baseElement {
 };
 
 // this supports either having wc-i18n.html on/off the page
-window.WCI18n.setLanguage = window.WCI18n.setLanguage || function(){};
+window.WCI18n.setLanguage = window.WCI18n.setLanguage || function () {};
 
 // new way to update the language
-window.addEventListener('wc-i18n-set-language', ({detail})=>{
+window.addEventListener('wc-i18n-set-language', ({detail}) => {
   _language = detail;
   _updateInstanceLanguages(_instances, detail);
 });

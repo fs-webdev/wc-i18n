@@ -10,10 +10,10 @@ Or see the LICENSE file that comes with this code.
     <meta charset="utf-8">
     <title>wc-i18n demo</title>
 
-    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-    <link rel="import" href="./demo-comp/demo-comp.html">
-    <link rel="import" href="./test-comp/test-comp.html">
-    <link rel="import" href="./fancy-el/fancy-el.html">
+    <script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script type="module" src="./demo-comp/demo-comp.js"></script>
+    <script type="module" src="./test-comp/test-comp.js"></script>
+    <script type="module" src="./fancy-el/fancy-el.js"></script>
 
     <script type="module" src="./native-el/native-el.js"></script>
   </head>
@@ -53,12 +53,15 @@ Or see the LICENSE file that comes with this code.
     <demo-comp></demo-comp>
     <fancy-el></fancy-el>
 
-    <script>
-      var langPicker = document.querySelector('#langPicker');
-      langPicker.addEventListener('change', function() {
-        window.dispatchEvent(new CustomEvent('wc-i18n-set-language',{detail: langPicker.value}));
-        document.querySelector('demo-comp').language = langPicker.value;
-      });
-    </script>
+    <script type="module">
+import './demo-comp/demo-comp.js';
+import './test-comp/test-comp.js';
+import './fancy-el/fancy-el.js';
+var langPicker = document.querySelector('#langPicker');
+langPicker.addEventListener('change', function() {
+  window.dispatchEvent(new CustomEvent('wc-i18n-set-language',{detail: langPicker.value}));
+  document.querySelector('demo-comp').language = langPicker.value;
+});
+</script>
   </body>
 </html>

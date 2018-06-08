@@ -13,35 +13,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="../../web-component-tester/browser.js"></script>
-    <script src="../../promise-polyfill/promise.min.js"></script>
-    <script src="../../fetch/fetch.js"></script>
+    <script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <script src="../../wct-browser-legacy/browser.js"></script>
+    <script src="../../@polymer/promise-polyfill/promise.min.js"></script>
+    <script src="../../whatwg-fetch/fetch.js"></script>
     <script src="../../fetch-mock/index.js"></script>
 
-    <script>
-      // This is a nasty global test hack. Super bad but it works
-      var srcLocales = {
-        "en":{
-          "hello-msg":"Hello!",
-          "fancy-msg":"This is a {type} {thing}"
-        },
-        "ko":{
-          "hello-msg":"안녕하세요!"
-        },
-        "fr":{
-          "hello-msg":"Bonjour!"
-        },
-        "de":{
-          "hello-msg":"Gutentag!"
-        }
-      };
-    </script>
+    <script type="module">
+import './x-el-inline.js';
+// This is a nasty global test hack. Super bad but it works
+var srcLocales = {
+  "en":{
+    "hello-msg":"Hello!",
+    "fancy-msg":"This is a {type} {thing}"
+  },
+  "ko":{
+    "hello-msg":"안녕하세요!"
+  },
+  "fr":{
+    "hello-msg":"Bonjour!"
+  },
+  "de":{
+    "hello-msg":"Gutentag!"
+  }
+};
+</script>
     <!-- Step 1: import the element to test -->
-    <script>
-      window.WCI18n = { language: 'ko' };
-    </script>
-    <link rel="import" href="./x-el-inline.html">
+    <script type="module">
+import './x-el-inline.js';
+window.WCI18n = { language: 'ko' };
+</script>
+    <script type="module" src="./x-el-inline.js"></script>
   </head>
   <body>
 
@@ -52,32 +54,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
     </test-fixture>
 
-    <script>
-      (function() {
-        describe('WCI18n Global Default', function() {
-          var xEl;
-          beforeEach(function() {
-            xEl = fixture('x-el-fixture');
-          });
-          it('Should set the default language to the value of WCI18n.language (if set)', function(done) {
-            flush(function() {
-              expect(xEl.language).to.equal('ko');
-              expect(xEl.i18n('hello-msg')).to.equal(srcLocales.ko['hello-msg']);
-              done();
-            });
-          });
-          it('Should update the value of all components if WCI18n.setLanguage is called', function(done) {
-            expect(xEl.language).to.equal('ko');
-            WCI18n.setLanguage('en');
-            flush(function() {
-              expect(xEl.language).to.equal('en');
-              expect(xEl.i18n('hello-msg')).to.equal(srcLocales.en['hello-msg']);
-              done();
-            });
-          });
-        });
-      })();
-    </script>
+    <script type="module">
+import './x-el-inline.js';
+describe('WCI18n Global Default', function() {
+  var xEl;
+  beforeEach(function() {
+    xEl = fixture('x-el-fixture');
+  });
+  it('Should set the default language to the value of WCI18n.language (if set)', function(done) {
+    flush(function() {
+      expect(xEl.language).to.equal('ko');
+      expect(xEl.i18n('hello-msg')).to.equal(srcLocales.ko['hello-msg']);
+      done();
+    });
+  });
+  it('Should update the value of all components if WCI18n.setLanguage is called', function(done) {
+    expect(xEl.language).to.equal('ko');
+    WCI18n.setLanguage('en');
+    flush(function() {
+      expect(xEl.language).to.equal('en');
+      expect(xEl.i18n('hello-msg')).to.equal(srcLocales.en['hello-msg']);
+      done();
+    });
+  });
+});
+</script>
 
   </body>
 </html>
