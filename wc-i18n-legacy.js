@@ -254,7 +254,8 @@ window.WCI18n = function (locales) {
         componentPath = componentPath.length > 1 ? componentPath[2] : '';
         /* eslint-enable no-useless-escape */
       }
-      return componentPath;
+
+      return componentPath ? componentPath : `/components/${this.__getComponentName()}/`;
     },
     attached: function () {
       let componentName = this.__getComponentName();
