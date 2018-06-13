@@ -20,7 +20,8 @@ Example:
 */
 import '@polymer/polymer/polymer-legacy.js';
 
-import '../wc-i18n.js';
+import './srcLocales.js';
+import '../wc-i18n-legacy.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 Polymer({
@@ -35,6 +36,6 @@ Polymer({
   is: 'x-el-inline',
 
   behaviors: [
-    WCI18n(srcLocales)
+    WCI18n(window.srcLocales)
   ]
 });

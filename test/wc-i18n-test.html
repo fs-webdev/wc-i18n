@@ -15,31 +15,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
     <script src="../../wct-browser-legacy/browser.js"></script>
-    <script src="../../fetch-mock/index.js"></script>
+    <script src="../../fetch-mock/dist/es5/client-bundle.js"></script>
 
-    <script type="module">
-
-      // This is a nasty global test hack. Super bad but it works
-      var srcLocales = {
-        "en":{
-          "hello-msg":"Hello!",
-          "fancy-msg":"This is a {type} {thing}"
-        },
-        "ko":{
-          "hello-msg":"안녕하세요!"
-        },
-        "fr":{
-          "hello-msg":"Bonjour!"
-        },
-        "de":{
-          "hello-msg":"Gutentag!"
-        }
-      };
-    </script>
     <!-- Step 1: import the element to test -->
+    <script type="module" src="./srcLocales.js"></script>
     <script type="module" src="./x-el.js"></script>
     <script type="module" src="./x-el-inline.js"></script>
-    <script type="module" src="./wc-i18n.js"></script>
+    <script type="module" src="./wc-i18n-legacy.js"></script>
   </head>
   <body>
 
@@ -86,7 +68,7 @@ describe((~location.search.indexOf('dom=shadow') ? 'Shadow DOM Tests' : 'Light D
         it('should have a translation function that returns strings', function(done) {
           flush(function() {
             var key = 'hello-msg';
-            expect(xElInline.i18n(key)).to.equal(srcLocales['en'][key]);
+            expect(xElInline.i18n(key)).to.equal(window.srcLocales['en'][key]);
             done();
           });
         });
@@ -109,11 +91,11 @@ describe((~location.search.indexOf('dom=shadow') ? 'Shadow DOM Tests' : 'Light D
     describe('if not inlined', function() {
       var matcher = /\/components\/wc-i18n\/test\/locales\/x-el_en\.json/;
       before(function() {
-        fetchMock.get(matcher, srcLocales['en']);
+        window.fetchMock.get('*', window.srcLocales['en']);
       });
 
       after(function() {
-        fetchMock.restore();
+        window.fetchMock.restore();
       });
 
       var i18nFxn;
@@ -124,7 +106,7 @@ describe((~location.search.indexOf('dom=shadow') ? 'Shadow DOM Tests' : 'Light D
 
       describe('when initialized', function() {
         it('should attempt to fetch locales', function() {
-          expect(fetchMock.called(matcher)).to.be.true;
+          expect(window.fetchMock.called()).to.be.true;
         });
         it('should update translation function with strings when returned', function(done) {
           var key = 'hello-msg';

@@ -19,30 +19,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script src="../../whatwg-fetch/fetch.js"></script>
     <script src="../../fetch-mock/index.js"></script>
 
-    <script type="module">
-import './x-el-inline.js';
-// This is a nasty global test hack. Super bad but it works
-var srcLocales = {
-  "en":{
-    "hello-msg":"Hello!",
-    "fancy-msg":"This is a {type} {thing}"
-  },
-  "ko":{
-    "hello-msg":"안녕하세요!"
-  },
-  "fr":{
-    "hello-msg":"Bonjour!"
-  },
-  "de":{
-    "hello-msg":"Gutentag!"
-  }
-};
-</script>
-    <!-- Step 1: import the element to test -->
-    <script type="module">
-import './x-el-inline.js';
-window.WCI18n = { language: 'ko' };
-</script>
+    <script>
+      window.WCI18n = { language: 'ko' };
+    </script>
+
     <script type="module" src="./x-el-inline.js"></script>
   </head>
   <body>
@@ -64,16 +44,16 @@ describe('WCI18n Global Default', function() {
   it('Should set the default language to the value of WCI18n.language (if set)', function(done) {
     flush(function() {
       expect(xEl.language).to.equal('ko');
-      expect(xEl.i18n('hello-msg')).to.equal(srcLocales.ko['hello-msg']);
+      expect(xEl.i18n('hello-msg')).to.equal(window.srcLocales.ko['hello-msg']);
       done();
     });
   });
   it('Should update the value of all components if WCI18n.setLanguage is called', function(done) {
     expect(xEl.language).to.equal('ko');
-    WCI18n.setLanguage('en');
+    window.WCI18n.setLanguage('en');
     flush(function() {
       expect(xEl.language).to.equal('en');
-      expect(xEl.i18n('hello-msg')).to.equal(srcLocales.en['hello-msg']);
+      expect(xEl.i18n('hello-msg')).to.equal(window.srcLocales.en['hello-msg']);
       done();
     });
   });

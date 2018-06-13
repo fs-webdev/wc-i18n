@@ -83,7 +83,7 @@ export const WCI18n = (locales) => (baseElement) => class extends baseElement {
       let stackLines = e.stack.split('\n');
       let l = stackLines.filter(line => line.includes(`${this.__getComponentName()}.js`));
       /* eslint-disable no-useless-escape */
-      componentPath = l[0] && l[0].match(/((http[s]?:\/\/.+\/)([^\/]+\.js)):/) || [];
+      componentPath = (l[0] && l[0].match(/((http[s]?:\/\/.+\/)([^\/]+\.js)):/)) || [];
       componentPath = componentPath.length > 1 ? componentPath[2] : '';
       /* eslint-enable no-useless-escape */
     }
