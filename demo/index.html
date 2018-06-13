@@ -14,11 +14,12 @@ Or see the LICENSE file that comes with this code.
     <script type="module" src="./demo-comp/demo-comp.js"></script>
     <script type="module" src="./test-comp/test-comp.js"></script>
     <script type="module" src="./fancy-el/fancy-el.js"></script>
-
+    <script type="module" src="./lit-el/lit-el.js"></script>
     <script type="module" src="./native-el/native-el.js"></script>
+    <script type="module" src="./hyper-el/hyper-el.js"></script>
   </head>
   <body>
-    <div>
+    <div style="display:inline-block;">
       <label for="langPicker">Choose page language: </label>
       <select id="langPicker">
         <option selected>en</option>
@@ -27,7 +28,9 @@ Or see the LICENSE file that comes with this code.
         <option>ko</option>
       </select>
     </div>
+    <lit-el></lit-el>
     <native-el></native-el>
+    <hyper-el></hyper-el>
 
     <test-comp></test-comp>
     <demo-comp></demo-comp>

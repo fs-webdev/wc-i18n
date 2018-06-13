@@ -1,12 +1,6 @@
 import {WCI18n} from '../../wc-i18n.js';
 
-/**
- * `native-el`
- *
- *
- * @customElement
- * @demo demo/index.html
- */
+
 class NativeEl extends WCI18n()(HTMLElement) {
   constructor(){
     super();
