@@ -52,6 +52,7 @@ export const WCI18n = (locales) => (baseElement) => class extends baseElement {
     this._componentPath = this.__getComponentPath();
     this.__updateLanguage(_language);
     this.i18n = () => {};
+    this.lanugage = _language;
   }
 
   connectedCallback () {

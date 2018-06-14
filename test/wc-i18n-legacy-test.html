@@ -19,36 +19,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <!-- Step 1: import the element to test -->
     <script type="module" src="./srcLocales.js"></script>
-    <script type="module" src="./native-el.js"></script>
-    <script type="module" src="./native-el-inline.js"></script>
+    <script type="module" src="./x-el.js"></script>
+    <script type="module" src="./x-el-inline.js"></script>
+    <script type="module" src="./wc-i18n-legacy.js"></script>
   </head>
   <body>
 
     <!-- You can use the document as a place to set up your fixtures. -->
-    <test-fixture id="native-el-fixture">
+    <test-fixture id="x-el-fixture">
       <template>
-        <native-el></native-el>
+        <x-el></x-el>
       </template>
     </test-fixture>
 
-    <test-fixture id="native-el-inline-fixture">
+    <test-fixture id="x-el-inline-fixture">
       <template>
-        <native-el-inline></native-el-inline>
+        <x-el-inline></x-el-inline>
       </template>
     </test-fixture>
 
     <script type="module">
-import './native-el.js';
-import './native-el-inline.js';
+import './x-el.js';
+import './x-el-inline.js';
 describe((~location.search.indexOf('dom=shadow') ? 'Shadow DOM Tests' : 'Light DOM Tests'), function() {
   var xEl, xElInline, server;
 
-  beforeEach(function(done) {
-    xElInline = fixture('native-el-inline-fixture');
-    window.dispatchEvent(new CustomEvent('wc-i18n-set-language', {detail: 'en'}));
-    flush(function(){
-      done();
-    });
+  beforeEach(function() {
+    xElInline = fixture('x-el-inline-fixture');
   });
 
   /**
@@ -65,7 +62,7 @@ describe((~location.search.indexOf('dom=shadow') ? 'Shadow DOM Tests' : 'Light D
     });
     describe('if strings inlined', function() {
       beforeEach(function() {
-        xElInline = fixture('native-el-inline-fixture');
+        xElInline = fixture('x-el-inline-fixture');
       });
       describe('When initialized', function() {
         it('should have a translation function that returns strings', function(done) {
@@ -79,9 +76,11 @@ describe((~location.search.indexOf('dom=shadow') ? 'Shadow DOM Tests' : 'Light D
           var key = 'hello-msg';
           var newLang = 'fr';
           flush(function() {
+            var enI18n = xElInline.i18n;
+            xElInline.language = newLang;
             expect(xElInline.i18n(key)).to.equal(srcLocales['en'][key]);
-            window.dispatchEvent(new CustomEvent('wc-i18n-set-language', {detail: newLang}));
             flush(function() {
+              expect(enI18n).to.not.equal(xElInline.i18n);
               expect(xElInline.i18n(key)).to.equal(srcLocales[newLang][key]);
               done();
             });
@@ -90,7 +89,7 @@ describe((~location.search.indexOf('dom=shadow') ? 'Shadow DOM Tests' : 'Light D
       });
     });
     describe('if not inlined', function() {
-      var matcher = /\/components\/wc-i18n\/test\/locales\/native-el_en\.json/;
+      var matcher = /\/components\/wc-i18n\/test\/locales\/x-el_en\.json/;
       before(function() {
         window.fetchMock.get('*', window.srcLocales['en']);
       });
@@ -101,7 +100,7 @@ describe((~location.search.indexOf('dom=shadow') ? 'Shadow DOM Tests' : 'Light D
 
       var i18nFxn;
       beforeEach(function() {
-        xEl = fixture('native-el-fixture');
+        xEl = fixture('x-el-fixture');
         i18nFxn = xEl.i18n;
       });
 
