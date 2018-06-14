@@ -21,7 +21,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script type="module" src="./srcLocales.js"></script>
     <script type="module" src="./x-el.js"></script>
     <script type="module" src="./x-el-inline.js"></script>
-    <script type="module" src="./wc-i18n-legacy.js"></script>
   </head>
   <body>
 
@@ -39,8 +38,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </test-fixture>
 
     <script type="module">
-import './x-el.js';
-import './x-el-inline.js';
+
 describe((~location.search.indexOf('dom=shadow') ? 'Shadow DOM Tests' : 'Light DOM Tests'), function() {
   var xEl, xElInline, server;
 
