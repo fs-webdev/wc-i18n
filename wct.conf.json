@@ -19,13 +19,8 @@
           "platform":     "OS X 10.12"
         },
         {
-          "browserName":  "chrome",
-          "platform":     "linux"
-        },
-        {
           "browserName":  "microsoftedge",
-          "platform":     "Windows 10",
-          "version":      ""
+          "platform":     "Windows 10"
         },
         {
           "browserName":  "chrome",
