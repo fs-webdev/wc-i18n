@@ -9,7 +9,7 @@ before_install:
 
   - tree-common-build-scripts/bin/before_install.sh
   # pipe bower install output through tee to create a log to parse for errors and preserve exit code
-  - 'bower install --force-latest 2>&1 | tee bower-debug.log; ( exit ${PIPESTATUS[0]} )'
+  - 'bower install --config.interactive=false 2>&1 | tee bower-debug.log; ( exit ${PIPESTATUS[0]} )'
 # Branch whitelist
 branches:
   only:
