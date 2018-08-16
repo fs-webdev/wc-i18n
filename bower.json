@@ -1,6 +1,6 @@
 {
   "name": "wc-i18n",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "authors": [
     "Josh Crowther <jshcrowthe@gmail.com>"
   ],
@@ -27,11 +27,16 @@
     "webcomponentsjs": "webcomponents/webcomponentsjs#0.7 - 1"
   },
   "ignore": [
-    ".*",
-    "bin/",
-    "bin/*",
-    "test/",
-    "test/*",
-    "wct.conf.json"
+    "**/.*",
+    "**/node_modules",
+    "**/bower_components",
+    "**/components",
+    "**/demo",
+    "**/test",
+    "gulpfile.js",
+    "package.json",
+    "src/",
+    "src/*",
+    "wct.*.json"
   ]
 }

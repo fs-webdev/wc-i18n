@@ -1,6 +1,6 @@
 {
   "name": "wc-i18n",
-  "version": "2.1.1",
+  "version": "2.2.2",
   "directories": {
     "test": "test"
   },
@@ -18,33 +18,18 @@
   },
   "homepage": "https://github.com/fs-webdev/wc-i18n#readme",
   "devDependencies": {
-    "eslint-plugin-html": "^4.0.2",
-    "husky": "^0.14.3",
-    "semistandard": "^12.0.0",
-    "snazzy": "^7.0.0",
-    "stylelint": "^8.4.0",
-    "stylelint-config-standard": "^18.0.0"
+    "fs-common-build-scripts": "github:fs-webdev/fs-common-build-scripts"
   },
   "scripts": {
-    "precommit": "semistandard --verbose '**/*.html' '**/*.js' --fix | snazzy && stylelint '**/*.html' '**/*.css' --fix && git add .",
+    "postinstall": "bower install",
+    "precommit": "node node_modules/fs-common-build-scripts/bin/pre_commit_checks.js && node_modules/fs-common-build-scripts/bin/pre_commit_commands.sh",
+    "preinstall": "git config --global url.https://github.com/.insteadOf git://github.com/",
     "pretest": "semistandard --verbose '**/*.html' '**/*.js' --fix | snazzy && stylelint '**/*.html' '**/*.css' --fix",
     "standard": "semistandard --verbose '**/*.html' '**/*.js' | snazzy && stylelint '**/*.html' '**/*.css'",
     "standard-fix": "semistandard --verbose '**/*.html' '**/*.js' --fix | snazzy && stylelint '**/*.html' '**/*.css' --fix",
-    "stashandappend": "touch .gitcommithooktempfile && git stash --include-untracked --quiet && git add . && git stash pop --quiet && rm .gitcommithooktempfile",
-    "test": "wct --skip-plugin sauce"
-  },
-  "description": "A translation solution for web components",
-  "keywords": [
-    "web-component",
-    "web-components",
-    "polymer",
-    "i18n",
-    "internationalization"
-  ],
-  "babel": {
-    "presets": [
-      "env"
-    ]
+    "test": "wct --skip-plugin sauce",
+    "test-p": "wct --skip-plugin sauce -p",
+    "test-s": "wct --configFile wct.conf.windows.json --skip-plugin local && wct --configFile wct.conf.json --skip-plugin local"
   },
   "semistandard": {
     "about": "https://github.com/Flet/semistandard#javascript-semi-standard-style",
@@ -77,20 +62,29 @@
       "WCI18n"
     ],
     "ignore": [
+      "**/*bower_components*/**",
       "**/*min.*",
+      "**/*node_modules*/**",
       "**/*polyfill*",
-      "demo/",
-      "/reports/",
-      "/test/",
-      "/vendor/",
+      "**/demo/**",
+      "**/reports/**",
+      "**/test/**",
+      "**/vendor/**",
       "analysis.json",
       "gulpfile.js"
     ],
+    "parser": "babel-eslint",
     "plugin": "html"
   },
   "stylelint": {
     "about": "https://github.com/stylelint/stylelint/blob/master/docs/user-guide/rules.md#possible-errors",
     "extends": "stylelint-config-standard",
+    "ignoreFiles": [
+      "**/bower_components/**.*",
+      "**/node_modules/**.*",
+      "**/reports/**.*",
+      "**/test/**.*"
+    ],
     "rules": {
       "indentation": 2,
       "media-feature-colon-space-after": null,
