@@ -2,7 +2,7 @@ import {WCI18n} from '../../wc-i18n.js';
 import HyperHTMLElement from 'hyperhtml-element/esm/index.js';
 
 
-class HyperEl extends WCI18n()(HyperHTMLElement) {
+class HyperEl extends WCI18n(import.meta.url)(HyperHTMLElement) {
   constructor(){
     super();
     this.addEventListener('wc-i18n-translations-loaded', e=>this.render());

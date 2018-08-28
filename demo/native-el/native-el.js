@@ -1,7 +1,7 @@
 import {WCI18n} from '../../wc-i18n.js';
 
 
-class NativeEl extends WCI18n()(HTMLElement) {
+class NativeEl extends WCI18n(import.meta.url)(HTMLElement) {
   constructor(){
     super();
     this.addEventListener('wc-i18n-translations-loaded', e=>this._render());

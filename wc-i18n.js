@@ -49,7 +49,11 @@ _language = window.WCI18n.language || _language;
 export const WCI18n = (locales) => (baseElement) => class extends baseElement {
   constructor () {
     super();
-    this._componentPath = this.__getComponentPath();
+    if (typeof locales === 'string') {
+      this._componentPath = this.__getComponentPath(locales);
+      locales = null;
+    }
+
     this.__updateLanguage(_language);
     this.i18n = () => {};
     this.lanugage = _language;
@@ -76,19 +80,13 @@ export const WCI18n = (locales) => (baseElement) => class extends baseElement {
   __getComponentName () {
     return (typeof this.is === 'string') ? this.is : this.tagName.toLowerCase();
   }
-  __getComponentPath () {
-    let componentPath = '';
-    try {
-      throw new Error();
-    } catch (e) {
-      let stackLines = e.stack.split('\n');
-      let l = stackLines.filter(line => line.includes(`${this.__getComponentName()}.js`));
-      /* eslint-disable no-useless-escape */
-      componentPath = (l[0] && l[0].match(/((http[s]?:\/\/.+\/)([^\/]+\.js)):/)) || [];
-      componentPath = componentPath.length > 1 ? componentPath[2] : '';
-      /* eslint-enable no-useless-escape */
-    }
-    return componentPath || `/components/${this.__getComponentName()}/`;
+  __getComponentPath (url) {
+    if (!url) return;
+
+    let urlArr = url.split('/');
+    urlArr.pop();
+
+    return urlArr.join('/');
   }
 
   /**

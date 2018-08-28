@@ -2,7 +2,7 @@ import {WCI18n} from '../../wc-i18n.js';
 import {LitElement, html} from '@polymer/lit-element/lit-element.js';
 
 
-class LitEl extends WCI18n()(LitElement) {
+class LitEl extends WCI18n(import.meta.url)(LitElement) {
   constructor(){
     super();
     this.addEventListener('wc-i18n-translations-loaded', e=>this._invalidateProperties());
