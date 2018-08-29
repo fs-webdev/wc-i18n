@@ -15,6 +15,6 @@ Polymer({
   is: 'test-comp',
 
   behaviors: [
-    WCI18n()
+    WCI18n(import.meta.url)
   ]
 });

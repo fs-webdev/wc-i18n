@@ -16,7 +16,7 @@ Polymer({
   is: 'fancy-el',
 
   behaviors: [
-    WCI18n()
+    WCI18n(import.meta.url)
   ],
 
   properties: {

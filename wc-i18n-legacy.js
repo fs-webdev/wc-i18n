@@ -242,26 +242,19 @@ window.WCI18n = function (locales) {
       }
 
     },
-    __getComponentPath () {
-      let componentPath = '';
-      try {
-        throw new Error();
-      } catch (e) {
-        let stackLines = e.stack.split('\n');
-        let l = stackLines.filter(line => line.includes(`${this.__getComponentName()}.js`));
-        /* eslint-disable no-useless-escape */
-        componentPath = (l[0] && l[0].match(/((http[s]?:\/\/.+\/)([^\/]+\.js)):/)) || [];
-        componentPath = componentPath.length > 1 ? componentPath[2] : '';
-        /* eslint-enable no-useless-escape */
-      }
+    __getComponentPath (url) {
+      if (!url) return;
 
-      return componentPath || `/components/${this.__getComponentName()}/`;
+      let urlArr = url.split('/');
+      urlArr.pop();
+
+      return urlArr.join('/');
     },
     attached: function () {
       let componentName = this.__getComponentName();
 
       if (!_componentPaths[componentName]) {
-        _componentPaths[componentName] = this.__getComponentPath();
+        _componentPaths[componentName] = this.__getComponentPath(locales);
 
         this.__updateLanguage(this.language);
       }
@@ -331,7 +324,7 @@ window.WCI18n = function (locales) {
       let componentName = this.__getComponentName();
 
       if (_language !== newLang) _language = newLang;
-      if (!_strings[componentName]) _strings[componentName] = locales;
+      if (!_strings[componentName] && typeof locales !== 'string') _strings[componentName] = locales;
       if (!_componentPaths[componentName]) return;
 
       // Fetch the locale strings then

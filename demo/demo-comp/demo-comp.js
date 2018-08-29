@@ -15,6 +15,6 @@ Polymer({
   is: 'demo-comp',
 
   behaviors: [
-    WCI18n()
+    WCI18n(import.meta.url)
   ]
 });
