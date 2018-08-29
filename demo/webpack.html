@@ -10,13 +10,8 @@ Or see the LICENSE file that comes with this code.
     <meta charset="utf-8">
     <title>wc-i18n demo</title>
 
-    <script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-    <script type="module" src="./demo-comp/demo-comp.js"></script>
-    <script type="module" src="./test-comp/test-comp.js"></script>
-    <script type="module" src="./fancy-el/fancy-el.js"></script>
-    <script type="module" src="./lit-el/lit-el.js"></script>
-    <script type="module" src="./native-el/native-el.js"></script>
-    <script type="module" src="./hyper-el/hyper-el.js"></script>
+    <script src="../dist/bundle.js"></script>
+
   </head>
   <body>
     <div style="display:inline-block;">
@@ -57,9 +52,6 @@ Or see the LICENSE file that comes with this code.
     <fancy-el></fancy-el>
 
     <script type="module">
-      import './demo-comp/demo-comp.js';
-      import './test-comp/test-comp.js';
-      import './fancy-el/fancy-el.js';
       var langPicker = document.querySelector('#langPicker');
       langPicker.addEventListener('change', function() {
         window.dispatchEvent(new CustomEvent('wc-i18n-set-language',{detail: langPicker.value}));
