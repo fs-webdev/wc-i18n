@@ -9,20 +9,19 @@
     var _errFxns = {};
 
     /**
-     * Utility function to compute the default location for locales
-     *
-     * @param  {String} localeDir The directory of the locales
-     * @param  {String} component The name of the component to be translated
-     * @param  {String} lang      The language of the locale to be fetched
-     * @return {String}           The formatted path to the locales
-     */
+   * @description - Utility function to compute the default location for locales
+   *
+   * @param  {string} localeDir - The directory of the locales
+   * @param  {string} component The name of the component to be translated
+   * @param  {string} lang      The language of the locale to be fetched
+   * @returns {String}           The formatted path to the locales
+   */
     var _computeLocaleURI = function (localeDir, component, lang) {
       return localeDir + '/' + component + '_' + lang + '.json';
     };
 
     /**
-     * Iterates through all components with the WCI18n behavior
-     * and updates their language (triggering a refetch of locales)
+     * @description - Iterates through all components with the WCI18n behavior and updates their language (triggering a refetch of locales)
      */
     var _updateInstanceLanguages = function (instances, newLang) {
       instances.filter(function (el) {
@@ -36,8 +35,7 @@
     };
 
     /**
-     * Allow users to pre-set a language that will be used as the
-     * default by doing the following:
+     * @description - Allow users to pre-set a language that will be used as the default by doing the following:
      *
      * ```
      * window.WCI18n = { language: 'ko' };
@@ -209,9 +207,7 @@
       return {
         properties: {
           /**
-           * A function to translate a string into the current
-           * language. This will be recomputed as the language
-           * changes
+           * @description - A function to translate a string into the current language. This will be recomputed as the language changes.
            *
            * **Syntax**:
            *
@@ -258,14 +254,11 @@
         },
 
         /**
-         * Fetches the locales from the file server, only used if a locales object
-         * for the current language doesn't exist.
-         *
-         * @param  {String} newLang The language that should be fetched
-         * @return {Promise}         A promise to get the data, it resolves
-         * instantaneously if the data has been fetched before or if a pending
-         * request for data exists
-         */
+       * @description - Fetches the locales from the file server, only used if a locales object for the current language doesn't exist.
+       *
+       * @param  {string} newLang - The language that should be fetched
+       * @returns {Promise} A promise to get the data, it resolves instantaneously if the data has been fetched before or if a pending request for data exists.
+       */
         __fetchLocaleStrings: function (newLang) {
           return new Promise(function (resolve) {
             // If the strings already exist OR there is a promise for them
@@ -297,12 +290,11 @@
           }.bind(this));
         },
         /**
-         * Triggered by a change in the value of the `language` prop.
-         * This refreshes the value of the `i18n` function.
-         *
-         * @param  {String} newLang The new language
-         * @param  {String} oldLang The old language
-         */
+       * @description - Triggered by a change in the value of the `language` prop. This refreshes the value of the `i18n` function.
+       *
+       * @param  {string} newLang - The new language
+       * @param  {string} oldLang The old language
+       */
         __updateLanguage: function (newLang, oldLang) {
           if (_language !== newLang) _language = newLang;
           if (!_strings[this.__getComponentName()]) _strings[this.__getComponentName()] = locales;
