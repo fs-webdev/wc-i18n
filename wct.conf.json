@@ -39,7 +39,7 @@
       ],
       "thresholds": {
         "global": {
-          "statements": 85,
+          "statements": 90,
           "branches": 75,
           "functions": 80,
           "lines": 85
@@ -48,8 +48,8 @@
     },
     "size-limit": {
       "path": "wc-i18n.html",
-      "limitNoPolymer": "2 KB",
-      "limitNoExternals": "2 KB"
+      "limitNoPolymer": "5 KB",
+      "limitNoExternals": "5 KB"
     }
   }
 }
