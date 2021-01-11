@@ -250,7 +250,7 @@
         },
 
         __getComponentName: function () {
-          return (typeof this.is === 'string') ? this.is : this.tagName.toLowerCase();
+          return (typeof this.is === 'string' && this.is !== '') ? this.is : this.tagName.toLowerCase();
         },
 
         /**
@@ -298,7 +298,7 @@
         __updateLanguage: function (newLang, oldLang) {
           if (_language !== newLang) _language = newLang;
 
-          const handleAddLocalesError = function () {
+          const handleAddLocalesError = () => {
             this.i18n = _errFxns[newLang] = _errFxns[newLang] || function (key) {
               return 'KEY: ' + key + ' (' + newLang + ')';
             };
@@ -308,9 +308,9 @@
            * @event wc-i18n-translations-error
            */
             this.fire('wc-i18n-translations-error');
-          }.bind(this)
+          }
 
-          const handleAddLocales = function (locales) {
+          const handleAddLocales = (locales) => {
             var fxnKey = this.__getComponentName() + '.' + newLang;
             this.i18n = _i18nFxns[fxnKey] = _i18nFxns[fxnKey] || function (key) {
             // The user can pass an object as the second param or a series of sequential string values
@@ -340,7 +340,7 @@
            * @event wc-i18n-translations-loaded
            */
             this.fire('wc-i18n-translations-loaded');
-          }.bind(this)
+          }
 
           if(typeof locales === 'function'){
             locales(newLang).then(handleAddLocales).catch(handleAddLocalesError)
